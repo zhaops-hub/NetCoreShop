@@ -1,5 +1,6 @@
 using CoreShopUms.Conf;
 using CoreShopUms.Handler;
+using CoreShopUms.Infrastructure;
 using DotNetCore.CAP.Dashboard.NodeDiscovery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,6 @@ namespace CoreShopUms
             services.Configure<AppSettings>(Configuration);
 
 
-
             var appConf = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
 
             // 配置 Cap 
@@ -49,41 +49,34 @@ namespace CoreShopUms
                 // 配置cap dashboard
                 x.UseDashboard();
 
-                // 注册到consul
-
                 // 注册节点到 Consul
                 x.UseDiscovery(d =>
                 {
-                    //d.DiscoveryServerHostName = "localhost";
-                    //d.DiscoveryServerPort = 8500;
-                    //d.CurrentNodeHostName = "localhost";
-                    //d.CurrentNodePort = 5800;
-                    //d.NodeId = 1;
-                    //d.NodeName = "CAP No.1 Node";
-
+                    d.DiscoveryServerHostName = appConf.Value.Consul.HostName;
+                    d.DiscoveryServerPort = appConf.Value.Consul.Port;
+                    d.CurrentNodeHostName = appConf.Value.Deploy.HostName;
+                    d.CurrentNodePort = appConf.Value.Deploy.Port;
+                    d.NodeId = appConf.Value.Deploy.NodeId;
+                    d.NodeName = appConf.Value.Deploy.NodeName;
+                    d.MatchPath = "/Health";
                 });
             });
-
-            
-
-
 
             // 注入cap 处理
             services.AddTransient<TestEventHandler>();
 
+            services.AddScoped<UmsContext>();
 
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<AppSettings> settings)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UmsContext umsContext)
         {
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
