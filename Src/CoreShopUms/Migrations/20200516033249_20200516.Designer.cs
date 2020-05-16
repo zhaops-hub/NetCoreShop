@@ -2,14 +2,16 @@
 using CoreShopUms.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreShopUms.Migrations
 {
     [DbContext(typeof(UmsContext))]
-    partial class UmsContextModelSnapshot : ModelSnapshot
+    [Migration("20200516033249_20200516")]
+    partial class _20200516
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

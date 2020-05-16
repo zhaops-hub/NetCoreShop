@@ -1,0 +1,2 @@
+﻿add-migration 20200516 -Context UmsContext
+update-database 20200516033249_20200516
