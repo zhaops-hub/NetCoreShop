@@ -8,3 +8,8 @@ docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5672:5672 rab
 
 // consul
 docker run --name consul -d -p 5902:8500 -p 8300:8300 -p 8301:8301 -p 8302:8302 -p 8600:8600 -p 8500:8500  consul agent -server -bootstrap-expect=1 -ui -bind=0.0.0.0 -client=0.0.0.0
+
+
+// Ubuntu Æô¶¯ telnet 
+
+/etc/init.d/openbsd-inetd start

@@ -80,6 +80,30 @@ namespace CoreShopUms.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = entity.Id }, null);
         }
 
+        // PUT api/[controller]/UpdateUser
+        [HttpPut]
+        [Route("UpdateUser")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<ActionResult> UpdateUser([FromBody]UserModel user)
+        {
+            var entity = await _umsContext.Users.SingleOrDefaultAsync(d => d.Id == user.Id);
+            if (entity == null)
+            {
+                return NotFound(new { Msg = $"{user.Id} 找不到记录" });
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(user.RealName)) entity.RealName = user.RealName;
+            if (!string.IsNullOrWhiteSpace(user.Password)) entity.Password = user.Password;
+
+            _umsContext.Update(entity);
+            
+            await _umsContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUserById), new { id = entity.Id }, null);
+        }
+
 
         // POST api/[controller]/
         [HttpPost]
