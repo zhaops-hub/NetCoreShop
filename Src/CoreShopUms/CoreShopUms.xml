@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreShopUms</name>
+    </assembly>
+    <members>
+        <member name="P:CoreShopUms.Infrastructure.Entity.User.Id">
+            <summary>
+                唯一标识
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Infrastructure.Entity.User.Account">
+            <summary>
+                登录账户
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Infrastructure.Entity.User.Password">
+            <summary>
+                登录密码
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Infrastructure.Entity.User.RealName">
+            <summary>
+                真实姓名
+            </summary>
+        </member>
+        <member name="M:CoreShopUms.Infrastructure.UmsContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+                重写连接数据库
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="P:CoreShopUms.Model.UserModel.Id">
+            <summary>
+                唯一标识
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Model.UserModel.Account">
+            <summary>
+                登录账户
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Model.UserModel.Password">
+            <summary>
+                登录密码
+            </summary>
+        </member>
+        <member name="P:CoreShopUms.Model.UserModel.RealName">
+            <summary>
+                真实姓名
+            </summary>
+        </member>
+    </members>
+</doc>

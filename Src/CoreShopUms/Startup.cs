@@ -1,12 +1,16 @@
+using AutoMapper;
 using CoreShopUms.Conf;
+using CoreShopUms.Extensions;
 using CoreShopUms.Handler;
 using CoreShopUms.Infrastructure;
+using CoreShopUms.Mappers;
 using DotNetCore.CAP.Dashboard.NodeDiscovery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace CoreShopUms
 {
@@ -65,7 +69,15 @@ namespace CoreShopUms
             // 注入cap 处理
             services.AddTransient<TestEventHandler>();
 
+            // 配合 context
             services.AddScoped<UmsContext>();
+
+            // 配置swaggerdoc
+            services.AddSwagger();
+
+
+            // autoMapper
+            services.AddAutoMapperSetup();
 
             services.AddControllers();
         }
@@ -75,6 +87,12 @@ namespace CoreShopUms
         {
             app.UseRouting();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ums api v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
