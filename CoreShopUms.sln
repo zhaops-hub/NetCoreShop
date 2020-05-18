@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ums", "Ums", "{51549282-D59
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C18591C-BAC4-42BD-856A-45D854EBE459}"
 	ProjectSection(SolutionItems) = preProject
-		Docker-compose.yml = Docker-compose.yml
+		docker-compose.yml = docker-compose.yml
 		DockerCmd.txt = DockerCmd.txt
 	EndProjectSection
 EndProject

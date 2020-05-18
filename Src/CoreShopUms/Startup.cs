@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SkyApm.Utilities.DependencyInjection;
 using System;
 
 namespace CoreShopUms
@@ -75,9 +76,8 @@ namespace CoreShopUms
             // ≈‰÷√swaggerdoc
             services.AddSwagger();
 
-
             // autoMapper
-            services.AddAutoMapperSetup();
+            services.AddAutoMapperSetup(); 
 
             services.AddControllers();
         }
