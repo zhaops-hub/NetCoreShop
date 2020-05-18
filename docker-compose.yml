@@ -1,0 +1,84 @@
+version: '3.3'
+services: 
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        network_mode: bridge
+        ports:
+          - 3306:3306
+        environment:
+          - MYSQL_ROOT_PASSWORD=abc123
+        volumes:
+          - ./mysql_data/logs:/var/log/mysql
+          - ./mysql_data/data:/var/lib/mysql
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --lower_case_table_names=1
+        restart: always
+    consul:
+        image: consul
+        container_name: consul
+        network_mode: bridge
+        ports:
+          - 8300:8300
+          - 8301:8301
+          - 8301:8301/udp
+          - 8302:8302
+          - 8302:8302/udp
+          - 8400:8400
+          - 8500:8500
+          - 53:53/udp
+        volumes:
+          - ./consul_data/data:/consul/data
+          - ./consul_data/config:/consul/config
+        restart: always
+    rabbitmq:
+        image: rabbitmq:management
+        container_name: rabbitmq
+        network_mode: bridge
+        ports:
+          - 15672:15672
+          - 5672:5672
+    skywalking:
+        image: apache/skywalking-oap-server 
+        container_name: skywalking
+        restart: always
+        ports:
+          - 11800:11800
+          - 12800:12800
+          - 1234:1234
+        environment:
+          SW_STORAGE: mysql
+          SW_JDBC_URL: "jdbc:mysql://172.16.100.6:3306/skywalking?useSSL=false"
+          SW_DATA_SOURCE_USER: root
+          SW_DATA_SOURCE_PASSWORD: abc123
+          SW_DATA_SOURCE_CACHE_PREP_STMTS: "true"
+          SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_SIZE: 250
+          SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_LIMIT: 2048
+          SW_DATA_SOURCE_USE_SERVER_PREP_STMTS: "true"
+          SW_STORAGE_MYSQL_QUERY_MAX_SIZE: 5000
+        volumes:
+           - ./mysql-connector-java-5.1.47.jar:/skywalking/oap-libs/mysql-connector-java-5.1.47.jar
+           - /etc/timezone:/etc/timezone
+           - /etc/localtime:/etc/localtime
+        depends_on:
+           - mysql
+    skywalkingui:
+        image: apache/skywalking-ui
+        container_name: skywalkingui
+        restart: always
+        ports:
+          - 8080:8080
+        volumes:
+           - /etc/timezone:/etc/timezone
+           - /etc/localtime:/etc/localtime
+        links:
+          - skywalking
+        environment:
+          SW_OAP_ADDRESS: skywalking:12800
+        depends_on:
+           - skywalking
+
+
+
+
+
+    
