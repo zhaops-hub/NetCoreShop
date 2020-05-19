@@ -1,4 +1,3 @@
-using AutoMapper;
 using CoreShopUms.Conf;
 using CoreShopUms.Extensions;
 using CoreShopUms.Handler;
@@ -10,8 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using SkyApm.Utilities.DependencyInjection;
-using System;
 
 namespace CoreShopUms
 {
