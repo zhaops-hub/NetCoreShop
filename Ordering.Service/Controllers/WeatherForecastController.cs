@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Ordering.Application.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Ordering.Service.Application.Commands;
 
 namespace Ordering.Service.Controllers
 {
@@ -33,10 +33,10 @@ namespace Ordering.Service.Controllers
         public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
 
-            var createCmd = new CreateOrderCommand();
-            var requestCreateOrder = new IdentifiedCommand(createCmd, Guid.NewGuid().ToString(), typeof(CreateOrderCommand).Name);
+            //var createCmd = new CreateOrderCommand();
+            //var requestCreateOrder = new IdentifiedCommand(createCmd, Guid.NewGuid().ToString(), typeof(CreateOrderCommand).Name);
             
-            await _mediator.Send<bool>(requestCreateOrder);
+            //await _mediator.Send<bool>(requestCreateOrder);
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

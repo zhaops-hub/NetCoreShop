@@ -44,7 +44,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orders","ordering");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.OrderItem", b =>
@@ -82,7 +82,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderItems","ordering");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.OrderStatus", b =>
@@ -98,7 +98,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderstatus","ordering");
+                    b.ToTable("OrderStatus");
                 });
 
             modelBuilder.Entity("Ordering.Infrastructure.Idempotency.ClientRequest", b =>
@@ -115,7 +115,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("requests","ordering");
+                    b.ToTable("ClientRequest");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.Order", b =>
@@ -140,7 +140,7 @@ namespace Ordering.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("orders");
+                            b1.ToTable("Orders");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

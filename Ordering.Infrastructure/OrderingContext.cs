@@ -13,8 +13,6 @@ namespace Ordering.Infrastructure
 {
     public class OrderingContext : DbContext, IUnitOfWork
     {
-        public const string DEFAULT_SCHEMA = "ordering";
-
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
@@ -57,8 +55,9 @@ namespace Ordering.Infrastructure
     {
         public OrderingContext CreateDbContext(string[] args)
         {
+
             var optionsBuilder = new DbContextOptionsBuilder<OrderingContext>()
-               .UseMySQL("Data Source=172.16.100.6;Database=CoreShop;User ID=root;Password=abc123;pooling=true;port=3306;sslmode=none;CharSet=utf8;");
+               .UseMySQL("Data Source=192.168.179.130;Database=CoreShop;User ID=root;Password=abc123;pooling=true;port=3306;sslmode=none;CharSet=utf8;");
 
             return new OrderingContext(optionsBuilder.Options, new NoMediator());
         }

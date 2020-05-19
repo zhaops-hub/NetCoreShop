@@ -1,15 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Domain.AggregatesModel.OrderAggregate;
-using Ordering.Domain.Events;
 using Ordering.Infrastructure.Idempotency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.Service.Application.Commands
+namespace Ordering.Application.Commands
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, bool>
     {

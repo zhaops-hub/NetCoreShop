@@ -9,8 +9,8 @@ using Ordering.Infrastructure;
 namespace Ordering.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20200519065014_20200516")]
-    partial class _20200516
+    [Migration("20200519151110_20200519")]
+    partial class _20200519
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orders","ordering");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.OrderItem", b =>
@@ -84,7 +84,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderItems","ordering");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.OrderStatus", b =>
@@ -100,7 +100,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderstatus","ordering");
+                    b.ToTable("OrderStatus");
                 });
 
             modelBuilder.Entity("Ordering.Infrastructure.Idempotency.ClientRequest", b =>
@@ -117,7 +117,7 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("requests","ordering");
+                    b.ToTable("ClientRequest");
                 });
 
             modelBuilder.Entity("Ordering.Domain.AggregatesModel.OrderAggregate.Order", b =>
@@ -142,7 +142,7 @@ namespace Ordering.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("orders");
+                            b1.ToTable("Orders");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

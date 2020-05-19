@@ -11,7 +11,7 @@ namespace Ordering.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable("orders", OrderingContext.DEFAULT_SCHEMA);
+            //builder.ToTable("orders");
 
             builder.HasKey(o => o.Id);
             

@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Ordering.Service.Application.Commands
+namespace Ordering.Application.Commands
 {
     [DataContract]
     public class CreateOrderCommand : IRequest<bool>

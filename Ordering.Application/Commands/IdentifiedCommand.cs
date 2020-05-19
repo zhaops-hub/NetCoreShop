@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Ordering.Service.Application.Commands
+namespace Ordering.Application.Commands
 {
     public class IdentifiedCommand : IRequest<bool>
     {

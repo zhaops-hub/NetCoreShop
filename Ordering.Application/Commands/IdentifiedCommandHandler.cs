@@ -4,7 +4,7 @@ using Ordering.Infrastructure.Idempotency;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.Service.Application.Commands
+namespace Ordering.Application.Commands
 {
     public class IdentifiedCommandHandler : IRequestHandler<IdentifiedCommand, bool>
     {

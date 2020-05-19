@@ -4,16 +4,25 @@ using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace Ordering.Infrastructure.Migrations
 {
-    public partial class _20200516 : Migration
+    public partial class _20200519 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "ordering");
+            migrationBuilder.CreateTable(
+                name: "ClientRequest",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientRequest", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                name: "orderItems",
-                schema: "ordering",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -28,12 +37,11 @@ namespace Ordering.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderItems", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orders",
-                schema: "ordering",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -50,12 +58,11 @@ namespace Ordering.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orders", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderstatus",
-                schema: "ordering",
+                name: "OrderStatus",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false, defaultValue: 1),
@@ -63,41 +70,23 @@ namespace Ordering.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderstatus", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "requests",
-                schema: "ordering",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Time = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_requests", x => x.Id);
+                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "orderItems",
-                schema: "ordering");
+                name: "ClientRequest");
 
             migrationBuilder.DropTable(
-                name: "orders",
-                schema: "ordering");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "orderstatus",
-                schema: "ordering");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "requests",
-                schema: "ordering");
+                name: "OrderStatus");
         }
     }
 }
