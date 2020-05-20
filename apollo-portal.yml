@@ -1,0 +1,20 @@
+version: '3'
+services:
+  apollo-portal:
+    image: apollo-portal:latest # 镜像地址，这里使用的是直接在当前主机上构建的镜像
+    container_name: apollo-portal
+    ports:
+      - "8070:8070"
+    volumes:
+      # 日志挂载
+      - /usr/local/apollo/servers/server1/logs/apollo-portal:/opt/logs  
+    environment:
+      # 数据库连接地址
+      DS_URL: "jdbc:mysql://172.16.100.6:3306/ApolloPortalDB?characterEncoding=utf8" 
+      # 数据库用户名
+      DS_USERNAME: "root"
+      # 数据库密码      
+      DS_PASSWORD: "abc123"
+      # META_SERVER 地址，如 http://192.168.100.234:8080,http://192.168.100.234:8081（多个可用,分隔，建议使用 LB 域名）,
+      DEV_META: "http://172.16.100.6:8080"
+      PRO_META: "http://172.16.100.6:8080"

@@ -34,4 +34,19 @@ docker run --name skywalking -d -p 1234:1234 -p 11800:11800 -p 12800:12800 -v /e
 docker run --name skywalking-ui -d -p 8080:8080 --link skywalking:skywalking -e SW_OAP_ADDRESS=skywalking:12800 -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --restart always apache/skywalking-ui
 
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+首先下载源码编译 然后 写一个docker-compose.yml
+
+晚上写一个文档
+
+// ConfigService
+
+docker run -p 8080:8080 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/ApolloConfigDB?characterEncoding=utf8" -e DS_USERNAME=root -e DS_PASSWORD=abc123 -d -v /tmp/logs:/opt/logs --name apollo-configservice apollo-configservice
+
+
+// adminService
+docker run -p 8090:8090 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/ApolloConfigDB?characterEncoding=utf8" -e DS_USERNAME=root -e DS_PASSWORD=abc123 -d -v /tmp/logs:/opt/logs --name apollo-adminservice apollo-adminservice
+
+// portal
+docker run -p 8070:8070 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/ApolloPortalDB?characterEncoding=utf8" -e DS_USERNAME=root -e DS_PASSWORD=abc123 -e DEV_META=http://172.16.100.6:8080 -e PRO_META=http://172.16.100.6:8080 -d -v /tmp/logs:/opt/logs --name apollo-portal apollo-portal

@@ -1,0 +1,41 @@
+version: '3'
+services:
+  apollo-configservice:
+    container_name: configservice
+    image: apollo-configservice:latest # 镜像地址，这里使用的是直接在当前主机上构建的镜像
+    ports:
+      - "8080:8080"
+    volumes:
+      # 日志挂载
+      - /usr/local/apollo/servers/server2/logs/apollo-configservice:/opt/logs
+    environment:
+      # 可通过 SERVER_PORT 指定默认启动端口，ports 也需要对应修改
+      # SERVER_PORT: 8080
+      # 指定 homePageUrl 为当前宿主的 apollo-configservice 地址，不然会出现无法访问
+      # JAVA_OPTS: "-Deureka.instance.homePageUrl=http://172.16.100.6:8080"
+      # 数据库连接地址
+      DS_URL: "jdbc:mysql://172.16.100.6:3306/ApolloConfigDB?characterEncoding=utf8"
+      # 数据库用户名
+      DS_USERNAME: "root"
+      # 数据库密码 
+      DS_PASSWORD: "abc123"
+      
+  apollo-adminservice:
+    container_name: adminservice
+    image: apollo-adminservice:latest # 镜像地址，这里使用的是直接在当前主机上构建的镜像
+    ports:
+      - "8090:8090"
+    volumes:
+      # 日志挂载
+      - /usr/local/apollo/servers/server2/logs/apollo-adminservice:/opt/logs
+    environment:
+      # 指定 homePageUrl 为当前宿主的 apollo-adminservice 地址，不然会出现无法访问
+      # JAVA_OPTS: "-Deureka.instance.homePageUrl=http://172.16.100.6:8090"
+      # 数据库连接地址
+      DS_URL: "jdbc:mysql://172.16.100.6:3306/ApolloConfigDB?characterEncoding=utf8"
+      # 数据库用户名
+      DS_USERNAME: "root"
+      # 数据库密码 
+      DS_PASSWORD: "abc123"
+    depends_on:
+      - apollo-configservice
