@@ -40,6 +40,8 @@ docker run --name skywalking-ui -d -p 8080:8080 --link skywalking:skywalking -e 
 
 晚上写一个文档
 
+docker-compose 部署一定要是 host模式，要不adminservice的 homepage地址  是容器内的地址，这个坑了一晚上
+
 // ConfigService
 
 docker run -p 8080:8080 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/ApolloConfigDB?characterEncoding=utf8" -e DS_USERNAME=root -e DS_PASSWORD=abc123 -d -v /tmp/logs:/opt/logs --name apollo-configservice apollo-configservice

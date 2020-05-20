@@ -3,8 +3,9 @@ services:
   apollo-configservice:
     container_name: configservice
     image: apollo-configservice:latest # 镜像地址，这里使用的是直接在当前主机上构建的镜像
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
+    network_mode: host 
     volumes:
       # 日志挂载
       - /usr/local/apollo/servers/server2/logs/apollo-configservice:/opt/logs
@@ -19,12 +20,15 @@ services:
       DS_USERNAME: "root"
       # 数据库密码 
       DS_PASSWORD: "abc123"
+      # 服务器的端口
+      SERVER_PORT: 8080
       
   apollo-adminservice:
     container_name: adminservice
     image: apollo-adminservice:latest # 镜像地址，这里使用的是直接在当前主机上构建的镜像
-    ports:
-      - "8090:8090"
+    # ports:
+    #   - "8090:8090"
+    network_mode: host 
     volumes:
       # 日志挂载
       - /usr/local/apollo/servers/server2/logs/apollo-adminservice:/opt/logs
@@ -37,5 +41,7 @@ services:
       DS_USERNAME: "root"
       # 数据库密码 
       DS_PASSWORD: "abc123"
+      # 服务器的端口
+      SERVER_PORT: 8090
     depends_on:
       - apollo-configservice
