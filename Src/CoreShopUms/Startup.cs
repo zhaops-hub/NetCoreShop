@@ -28,7 +28,7 @@ namespace CoreShopUms
             services.Configure<AppSettings>(Configuration);
 
 
-            var appConf = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
+            var appConf = services.BuildServiceProvider().GetService<IOptions<AppSettings>>(); 
 
             // ÅäÖÃ Cap 
             services.AddCap(x =>

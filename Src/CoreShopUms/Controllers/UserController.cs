@@ -3,6 +3,7 @@ using CoreShopUms.Conf;
 using CoreShopUms.Infrastructure;
 using CoreShopUms.Infrastructure.Entity;
 using CoreShopUms.Model;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -21,12 +22,14 @@ namespace CoreShopUms.Controllers
         private readonly IOptionsSnapshot<AppSettings> _settings;
         private readonly UmsContext _umsContext;
         private readonly IMapper _mapper;
+        private readonly ICapPublisher _capPublisher;
 
-        public UserController(IOptionsSnapshot<AppSettings> settings, UmsContext umsContext, IMapper mapper)
+        public UserController(IOptionsSnapshot<AppSettings> settings, UmsContext umsContext, IMapper mapper, ICapPublisher capPublisher)
         {
             _settings = settings;
             _umsContext = umsContext;
             _mapper = mapper;
+            _capPublisher = capPublisher;
 
             _umsContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
@@ -60,7 +63,7 @@ namespace CoreShopUms.Controllers
         [Route("AddUser")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> AddUser([FromBody]UserModel user)
+        public async Task<ActionResult> AddUser([FromBody] UserModel user)
         {
 
             if (_umsContext.Users.Count(d => d.Account == user.Account) > 0) return BadRequest(new { Msg = "acount 不能重复！" });
@@ -77,6 +80,10 @@ namespace CoreShopUms.Controllers
 
             await _umsContext.SaveChangesAsync();
 
+            var msg = new EventBusContract(Guid.NewGuid().ToString(), "asdasdasd");
+
+            _capPublisher.Publish<EventBusContract>(EventBusSettings.AddUserEvent, msg);
+
             return CreatedAtAction(nameof(GetUserById), new { id = entity.Id }, null);
         }
 
@@ -85,7 +92,7 @@ namespace CoreShopUms.Controllers
         [Route("UpdateUser")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateUser([FromBody]UserModel user)
+        public async Task<ActionResult> UpdateUser([FromBody] UserModel user)
         {
             var entity = await _umsContext.Users.SingleOrDefaultAsync(d => d.Id == user.Id);
             if (entity == null)
@@ -98,7 +105,7 @@ namespace CoreShopUms.Controllers
             if (!string.IsNullOrWhiteSpace(user.Password)) entity.Password = user.Password;
 
             _umsContext.Update(entity);
-            
+
             await _umsContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetUserById), new { id = entity.Id }, null);
@@ -110,7 +117,7 @@ namespace CoreShopUms.Controllers
         [Route("")]
         [ProducesResponseType(typeof(PaginatedItemsModel<UserModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<PaginatedItemsModel<UserModel>>> GetUsers([FromBody]UserModel whereModel, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        public async Task<ActionResult<PaginatedItemsModel<UserModel>>> GetUsers([FromBody] UserModel whereModel, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var root = (IQueryable<User>)_umsContext.Users;
 

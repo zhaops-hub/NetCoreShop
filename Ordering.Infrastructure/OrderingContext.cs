@@ -57,7 +57,7 @@ namespace Ordering.Infrastructure
         {
 
             var optionsBuilder = new DbContextOptionsBuilder<OrderingContext>()
-               .UseMySQL("Data Source=192.168.179.130;Database=CoreShop;User ID=root;Password=abc123;pooling=true;port=3306;sslmode=none;CharSet=utf8;");
+               .UseMySQL("Data Source=172.16.100.6;Database=CoreShop;User ID=root;Password=abc123;pooling=true;port=3306;sslmode=none;CharSet=utf8;");
 
             return new OrderingContext(optionsBuilder.Options, new NoMediator());
         }

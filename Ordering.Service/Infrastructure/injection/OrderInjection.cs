@@ -13,6 +13,7 @@ using Ordering.Domain.Events;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Idempotency;
 using Ordering.Infrastructure.Repositories;
+using Ordering.Service.EventBus;
 using System.Collections.Generic;
 using System.IO;
 
@@ -24,8 +25,7 @@ namespace Ordering.Service.Infrastructure.injection
         {
             // 映射配置文件
             services.Configure<AppSettings>(configuration);
-            var appConf = services.BuildServiceProvider().GetService<IOptions<AppSettings>>();
-
+            var appConf = services.BuildServiceProvider().GetService<IOptionsSnapshot<AppSettings>>();
 
             // 数据库
             services.AddDbContext<OrderingContext>((options) =>
@@ -50,22 +50,25 @@ namespace Ordering.Service.Infrastructure.injection
             services.AddScoped<INotificationHandler<OrderStartedDomainEvent>, OrderStartedDomainEventHandler>();
 
 
+
+          
+
             // 配置 Cap 
             services.AddCap(x =>
             {
                 // 配置数据库
                 x.UseMySql(opt =>
                 {
-                    opt.ConnectionString = appConf.Value.Cap.ConnectionString;
-                    opt.TableNamePrefix = appConf.Value.Cap.TableNamePrefix;
+                    opt.ConnectionString = appConf.Value.CapConnectionString;
+                    opt.TableNamePrefix = appConf.Value.CapTableNamePrefix;
                 });
 
                 // 配置消息队列
                 x.UseRabbitMQ(opt =>
                 {
-                    opt.HostName = appConf.Value.RabbitMq.HostName;
-                    opt.UserName = appConf.Value.RabbitMq.UserName;
-                    opt.Password = appConf.Value.RabbitMq.PassWord;
+                    opt.HostName = appConf.Value.RabbitMqHostName;
+                    opt.UserName = appConf.Value.RabbitMqUserName;
+                    opt.Password = appConf.Value.RabbitMqPassWord;
                 });
 
                 // 配置cap dashboard
@@ -74,15 +77,19 @@ namespace Ordering.Service.Infrastructure.injection
                 // 注册节点到 Consul
                 x.UseDiscovery(d =>
                 {
-                    d.DiscoveryServerHostName = appConf.Value.Consul.HostName;
-                    d.DiscoveryServerPort = appConf.Value.Consul.Port;
-                    d.CurrentNodeHostName = appConf.Value.Deploy.HostName;
-                    d.CurrentNodePort = appConf.Value.Deploy.Port;
-                    d.NodeId = appConf.Value.Deploy.NodeId;
-                    d.NodeName = appConf.Value.Deploy.NodeName;
-                    //d.MatchPath = "/Health";
+                    d.DiscoveryServerHostName = appConf.Value.ConsulHostName;
+                    d.DiscoveryServerPort = int.Parse(appConf.Value.ConsulPort);
+                    d.CurrentNodeHostName = appConf.Value.DeployHostName;
+                    d.CurrentNodePort = int.Parse(appConf.Value.DeployPort);
+                    d.NodeId = appConf.Value.DeployNodeId;
+                    d.NodeName = appConf.Value.DeployNodeName;
+                    d.MatchPath = "/Health";
                 });
             });
+
+            // 注入cap 处理
+            // 这个要在 addcap 之后
+            services.AddScoped<EventBusHandler>();
 
 
             // swaggerGen 文档

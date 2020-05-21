@@ -27,16 +27,16 @@ namespace ApolloTest
             var configuration = builder.Build();
 
 
-            builder = new ConfigurationBuilder().AddApollo(configuration.GetSection("apollo")).AddDefault();
+            builder = new ConfigurationBuilder().AddApollo(builder.Build().GetSection("apollo")).AddNamespace("spzl.ums");
             var d = builder.Build();
-            
-            
+
+
             var appSetting = new ServiceCollection()
                .Configure<AppSettings>(builder.Build());
 
             var appConf = appSetting.BuildServiceProvider().GetService<IOptions<AppSettings>>();
 
-            
+
             return Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((hostingContext, builder) =>
             {
@@ -47,7 +47,8 @@ namespace ApolloTest
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel();
-                    webBuilder.UseUrls($"http://{appConf.Value.DeployHostName}:{appConf.Value.DeployPort}");
+                    //webBuilder.UseUrls($"http://{appConf.Value.DeployHostName}:{appConf.Value.DeployPort}");
+                    webBuilder.UseUrls("http://127.0.0.1:5000");
                 });
         }
     }

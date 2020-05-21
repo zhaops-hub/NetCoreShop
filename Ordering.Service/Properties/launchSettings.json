@@ -21,8 +21,6 @@
     },
     "Ordering.Service": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "SKYWALKING__SERVICENAME": "Ordering.Service",
         "ASPNETCORE_ENVIRONMENT": "Development",

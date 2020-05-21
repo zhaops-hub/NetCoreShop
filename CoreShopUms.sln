@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ums", "Ums", "{51549282-D59
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C18591C-BAC4-42BD-856A-45D854EBE459}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		docker-compose.yml = docker-compose.yml
 		DockerCmd.txt = DockerCmd.txt
 	EndProjectSection
@@ -25,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "Ordering.Application\Ordering.Application.csproj", "{0C8503D3-6C85-4D0C-A9C9-F646CDA188D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApolloTest", "ApolloTest\ApolloTest.csproj", "{619C6575-5290-4CD2-8340-9AD1666C1562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApolloTest", "ApolloTest\ApolloTest.csproj", "{619C6575-5290-4CD2-8340-9AD1666C1562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

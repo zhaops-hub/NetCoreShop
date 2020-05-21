@@ -45,7 +45,6 @@ namespace ApolloTest
             {
                 // 配置文件更新了
                 Console.WriteLine(" 配置文件更新了 ");
-
             });
 
 
@@ -68,6 +67,7 @@ namespace ApolloTest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
             });
         }
     }

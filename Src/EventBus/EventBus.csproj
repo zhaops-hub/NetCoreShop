@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetCore.CAP" Version="3.0.4-preview-103991021" />
     <PackageReference Include="DotNetCore.CAP.MySql" Version="3.0.4-preview-103991021" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="3.0.4-preview-103991021" />
