@@ -10,7 +10,7 @@ namespace Ordering.Service.EventBus
         [CapSubscribe(EventBusSettings.AddUserEvent)]
         public void AddUserReceivedMessage(EventBusContract msg)
         {
-            throw new System.Exception("111");
+           
         }
     }
 }

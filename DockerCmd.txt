@@ -52,3 +52,17 @@ docker run -p 8090:8090 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/Apo
 
 // portal
 docker run -p 8070:8070 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/ApolloPortalDB?characterEncoding=utf8" -e DS_USERNAME=root -e DS_PASSWORD=abc123 -e DEV_META=http://172.16.100.6:8080 -e PRO_META=http://172.16.100.6:8080 -d -v /tmp/logs:/opt/logs --name apollo-portal apollo-portal
+
+
+
+// portainer
+ portainer:
+    image: portainer/portainer
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer_data:/data
+    network_mode: bridge # ÍøÂçÄ£Ê½
+    restart: always

@@ -33,8 +33,7 @@ namespace Ordering.Service
                .Configure<AppSettings>(builder.Build());
 
             var appConf = appSetting.BuildServiceProvider().GetService<IOptionsSnapshot<AppSettings>>();
-
-
+            
             return Host.CreateDefaultBuilder(args)
                  .ConfigureAppConfiguration((hostingContext, builder) =>
                  {
