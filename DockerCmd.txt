@@ -66,3 +66,9 @@ docker run -p 8070:8070 --net=host -e DS_URL="jdbc:mysql://172.16.100.6:3306/Apo
       - ./portainer_data:/data
     network_mode: bridge # ÍøÂçÄ£Ê½
     restart: always
+
+
+
+    
+// telnet
+systemctl status telnet.socket
