@@ -49,10 +49,6 @@ namespace Ordering.Service.Infrastructure.injection
             // 事件
             services.AddScoped<INotificationHandler<OrderStartedDomainEvent>, OrderStartedDomainEventHandler>();
 
-
-
-          
-
             // 配置 Cap 
             services.AddCap(x =>
             {
