@@ -49,43 +49,43 @@ namespace Ordering.Service.Infrastructure.injection
             // 事件
             services.AddScoped<INotificationHandler<OrderStartedDomainEvent>, OrderStartedDomainEventHandler>();
 
-            // 配置 Cap 
-            services.AddCap(x =>
-            {
-                // 配置数据库
-                x.UseMySql(opt =>
-                {
-                    opt.ConnectionString = appConf.Value.CapConnectionString;
-                    opt.TableNamePrefix = appConf.Value.CapTableNamePrefix;
-                });
+            //// 配置 Cap 
+            //services.AddCap(x =>
+            //{
+            //    // 配置数据库
+            //    x.UseMySql(opt =>
+            //    {
+            //        opt.ConnectionString = appConf.Value.CapConnectionString;
+            //        opt.TableNamePrefix = appConf.Value.CapTableNamePrefix;
+            //    });
 
-                // 配置消息队列
-                x.UseRabbitMQ(opt =>
-                {
-                    opt.HostName = appConf.Value.RabbitMqHostName;
-                    opt.UserName = appConf.Value.RabbitMqUserName;
-                    opt.Password = appConf.Value.RabbitMqPassWord;
-                });
+            //    // 配置消息队列
+            //    x.UseRabbitMQ(opt =>
+            //    {
+            //        opt.HostName = appConf.Value.RabbitMqHostName;
+            //        opt.UserName = appConf.Value.RabbitMqUserName;
+            //        opt.Password = appConf.Value.RabbitMqPassWord;
+            //    });
 
-                // 配置cap dashboard
-                x.UseDashboard();
+            //    // 配置cap dashboard
+            //    x.UseDashboard();
 
-                // 注册节点到 Consul
-                x.UseDiscovery(d =>
-                {
-                    d.DiscoveryServerHostName = appConf.Value.ConsulHostName;
-                    d.DiscoveryServerPort = int.Parse(appConf.Value.ConsulPort);
-                    d.CurrentNodeHostName = appConf.Value.DeployHostName;
-                    d.CurrentNodePort = int.Parse(appConf.Value.DeployPort);
-                    d.NodeId = appConf.Value.DeployNodeId;
-                    d.NodeName = appConf.Value.DeployNodeName;
-                    d.MatchPath = "/Health";
-                });
-            });
+            //    // 注册节点到 Consul
+            //    x.UseDiscovery(d =>
+            //    {
+            //        d.DiscoveryServerHostName = appConf.Value.ConsulHostName;
+            //        d.DiscoveryServerPort = int.Parse(appConf.Value.ConsulPort);
+            //        d.CurrentNodeHostName = appConf.Value.DeployHostName;
+            //        d.CurrentNodePort = int.Parse(appConf.Value.DeployPort);
+            //        d.NodeId = appConf.Value.DeployNodeId;
+            //        d.NodeName = appConf.Value.DeployNodeName;
+            //        d.MatchPath = "/Health";
+            //    });
+            //});
 
-            // 注入cap 处理
-            // 这个要在 addcap 之后
-            services.AddScoped<EventBusHandler>();
+            //// 注入cap 处理
+            //// 这个要在 addcap 之后
+            //services.AddScoped<EventBusHandler>();
 
 
             // swaggerGen 文档

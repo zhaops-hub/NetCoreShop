@@ -15,7 +15,6 @@ namespace Ordering.Service.Controllers
     {
         private readonly IMediator _mediator;
 
-
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -30,13 +29,11 @@ namespace Ordering.Service.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> GetAsync()
+        public IEnumerable<WeatherForecast> Get()
         {
 
-            //var createCmd = new CreateOrderCommand();
-            //var requestCreateOrder = new IdentifiedCommand(createCmd, Guid.NewGuid().ToString(), typeof(CreateOrderCommand).Name);
-            
-            //await _mediator.Send<bool>(requestCreateOrder);
+            _logger.LogInformation("LogInformation");
+
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
